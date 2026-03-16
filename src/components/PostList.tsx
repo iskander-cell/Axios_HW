@@ -1,3 +1,5 @@
+import { Card, CardContent, Typography, Box } from "@mui/material"
+
 import type { IPost } from "../types/Post"
 
 interface Props {
@@ -8,19 +10,25 @@ const PostList = ({ posts }: Props) => {
 
   return (
 
-    <div>
+    <Box display="grid" gap={2}>
 
       {posts.map(post => (
 
-        <div key={post.id}>
+        <Card key={post.id}>
 
-          {post.title}
+          <CardContent>
 
-        </div>
+            <Typography>
+              {post.title}
+            </Typography>
+
+          </CardContent>
+
+        </Card>
 
       ))}
 
-    </div>
+    </Box>
 
   )
 

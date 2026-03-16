@@ -1,12 +1,25 @@
 import { useEffect, useState } from "react"
 
+import {
+  Container,
+  Typography,
+  Box,
+  CssBaseline
+} from "@mui/material"
+
+import { ThemeProvider, createTheme } from "@mui/material/styles"
+
 import type { IUser } from "./types/User"
 import type { IPost } from "./types/Post"
 
 import UserCard from "./components/UserCard"
 import PostList from "./components/PostList"
 
-import "./styles/app.css"
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark"
+  }
+})
 
 function App() {
 
@@ -48,35 +61,66 @@ function App() {
 
   return (
 
-    <div className="container">
+    <ThemeProvider theme={darkTheme}>
 
-      <h1>Users</h1>
+      <CssBaseline />
 
-      {users.map(user => (
+      <Container maxWidth="lg">
 
-        <UserCard
-          key={user.id}
-          user={user}
-          onClick={() => fetchPosts(user)}
-        />
+        <Typography
+          variant="h4"
+          sx={{ mt: 4, mb: 4 }}
+        >
+          Users
+        </Typography>
 
-      ))}
+        <Box
+          display="grid"
+          gridTemplateColumns="1fr 1fr"
+          gap={4}
+        >
 
-      {selectedUser && (
+          {/* Users column */}
 
-        <div>
+          <Box display="grid" gap={2}>
 
-          <h2>
-            Posts by {selectedUser.name}
-          </h2>
+            {users.map(user => (
 
-          <PostList posts={posts}/>
+              <UserCard
+                key={user.id}
+                user={user}
+                onClick={() => fetchPosts(user)}
+              />
 
-        </div>
+            ))}
 
-      )}
+          </Box>
 
-    </div>
+
+          {/* Posts column */}
+
+          <Box>
+
+            {selectedUser && (
+
+              <>
+                <Typography variant="h5" mb={2}>
+                  Posts by {selectedUser.name}
+                </Typography>
+
+                <PostList posts={posts}/>
+
+              </>
+
+            )}
+
+          </Box>
+
+        </Box>
+
+      </Container>
+
+    </ThemeProvider>
 
   )
 

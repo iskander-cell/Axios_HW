@@ -1,3 +1,5 @@
+import { Card, CardContent, Typography, Button } from "@mui/material"
+
 import type { IUser } from "../types/User"
 
 interface Props {
@@ -9,15 +11,32 @@ const UserCard = ({ user, onClick }: Props) => {
 
   return (
 
-    <div className="card" onClick={onClick}>
+    <Card>
 
-      <h3>{user.name}</h3>
+      <CardContent>
 
-      <p>{user.email}</p>
+        <Typography variant="h6">
+          {user.name}
+        </Typography>
 
-      <p>{user.company.name}</p>
+        <Typography color="text.secondary">
+          {user.email}
+        </Typography>
 
-    </div>
+        <Typography variant="body2" mb={2}>
+          {user.company.name}
+        </Typography>
+
+        <Button
+          variant="outlined"
+          onClick={onClick}
+        >
+          View Posts
+        </Button>
+
+      </CardContent>
+
+    </Card>
 
   )
 
